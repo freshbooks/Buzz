@@ -108,7 +108,9 @@ abstract class AbstractCurl extends AbstractClient
                 break;
         }
 
-        curl_setopt_array($curl, $options);
+        foreach ($options as $option => $value) {
+            curl_setopt($curl, $option, $value);
+        }
     }
 
     /**
@@ -232,6 +234,8 @@ abstract class AbstractCurl extends AbstractClient
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $this->getVerifyHost());
 
         // apply additional options
-        curl_setopt_array($curl, $options + $this->options);
+        foreach ($options + $this->options as $option => $value) {
+            curl_setopt($curl, $option, $value);
+        }
     }
 }
